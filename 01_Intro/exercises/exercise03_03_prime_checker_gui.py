@@ -293,9 +293,12 @@ def main():
         width=60,
         font=("Arial", 10),
         wrap=tk.WORD,
-        bg="lightyellow"
+        bg="lightyellow",
+        fg="#111111"  # Explicit text color so it's visible in macOS dark mode
     )
     info_text.pack(fill=tk.BOTH, expand=True)
+    # Initial helper text (so the box is not empty at startup)
+    info_text.insert('1.0', "Enter a number and click 'Check Prime' to see analysis details here.")
     
     # Bottom frame with quit button
     bottom_frame = tk.Frame(root)
