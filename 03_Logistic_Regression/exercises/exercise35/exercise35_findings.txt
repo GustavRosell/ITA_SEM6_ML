@@ -1,0 +1,100 @@
+=== IRIS DATASÆT - LOGISTISK REGRESSION ANALYSE ===
+Gustav Rosell Klitholm
+ML Kursus, September 2025
+
+=== DATASÆT KARAKTERISTIKA ===
+
+Det berømte Iris datasæt indeholder 150 observationer af iris blomster:
+- 4 features: sepal length, sepal width, petal length, petal width (alle i cm)
+- 3 klasser: Iris-Setosa, Iris-Versicolor, Iris-Virginica (50 af hver)
+- Kendt som en af de bedste datasæt til mønster-genkendelse
+
+For binær klassifikation konverterede vi til: Virginica (1) vs Andre (0)
+
+=== ANALYSE 1: PETAL-WIDTH KLASSIFIKATION ===
+
+Test af forskellige C-værdier med kun petal-width som feature:
+
+C-VÆRDI RESULTATER:
+- C = 0.1   (stærk regularization): Simple model, underfitter muligvis
+- C = 1     (moderat regularization): Balanceret tilgang  
+- C = 10    (let regularization): God performance
+- C = 100   (meget let regularization): Høj accuracy
+- C = 1000  (minimal regularization): Risiko for overfitting
+
+OBSERVATIONER:
+- Petal-width alene kan godt separere Virginica fra andre arter
+- Beslutningsgrænse ved ca. 1.75 cm petal-width
+- Høje C-værdier (100-1000) giver bedste resultater for dette datasæt
+- Kun få misklassifikationer i grænseområdet
+
+L1 vs L2 REGULARIZATION:
+- L1 (Lasso): Kan drive koefficienter til nul, sparse models
+- L2 (Ridge): Krymper koefficienter, men bevarer alle features
+- For enkelt-feature problem: minimal forskel observeret
+- L2 er default og fungerer godt for dette datasæt
+
+=== ANALYSE 2: PETAL-LENGTH OG PETAL-WIDTH ===
+
+Test af 2D klassifikation med både petal length og width:
+
+C-VÆRDI SAMMENLIGNING:
+- C = 1: Konservativ model, simple beslutningsgrænse
+- C = 10: Balanceret, god separation
+- C = 100: Høj accuracy, klar beslutningsgrænse  
+- C = 1000: Minimal regularization, kompleks grænse
+
+EUROPÆISKE PARAMETRE:
+Typiske værdier fundet (C=100):
+- a (konstant): ~-15 til -20
+- b (petal-length koeff): ~5 til 8  
+- c (petal-width koeff): ~10 til 15
+
+BESLUTNINGSGRÆNSE: a + b*petal_length + c*petal_width = 0
+Omskrevet: petal_width = -(a + b*petal_length) / c
+
+OBSERVATIONER:
+- 2D klassifikation giver næsten perfekt separation
+- Virginica har typisk større petal dimensions end andre arter
+- Beslutningsgrænse er diagonal linje der separerer klart
+- Accuracy typisk >95% for passende C-værdier
+
+=== REGULARIZATION SAMMENLIGNING ===
+
+L1 REGULARIZATION:
+- Kan give sparse solutions
+- God når vi vil feature selection
+- Kræver 'liblinear' solver
+
+L2 REGULARIZATION:  
+- Standard choice, smooth solutions
+- Bedre generalization typisk
+- Arbejder med alle sklearn solvere
+
+RESULTAT: For Iris datasæt er forskellen minimal da problemet er relativt simpelt.
+
+=== ANBEFALINGER ===
+
+BEDSTE PARAMETRE:
+- C = 100: God balance mellem fit og regularization
+- penalty = 'l2': Standard choice, robust
+- solver = 'lbfgs': Effektiv for små datasæt
+
+PRAKTISKE ERKENDELSER:
+1. Petal dimensions er meget informative for Iris klassifikation
+2. Selv enkelt feature (petal-width) giver acceptabel performance
+3. To features (petal length + width) giver næsten perfekt klassifikation
+4. Iris datasæt er lineært separabelt, derfor fungerer logistisk regression perfekt
+
+LÆRINGSEFFEKT:
+- C parameter kontrollerer regularization styrke (høj C = mindre regularization)
+- Europæisk notation (a,b,c) er klarere end theta arrays
+- Visualisering af beslutningsgrænser hjælper forståelse
+- Iris er ideelt begynder-datasæt pga. sin enkelthed og separation
+
+=== KONKLUSION ===
+
+Logistisk regression fungerer fremragende på Iris datasæt med næsten perfekt 
+klassifikation. Dette bekræfter datasættets status som "det bedst kendte 
+datasæt i mønster-genkendelse litteraturen". Resultaterne viser klart hvordan 
+regularization parametere påvirker model kompleksitet og performance.
