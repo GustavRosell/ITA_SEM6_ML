@@ -15,7 +15,7 @@ Current modules:
 - `04_Neural_Networks/` - SVM with kernels, K-means clustering
 - `05_Neural_Net_Intro/` - Neural Network introduction (pending catchup)
 - `06_Neural_Net_2_Confusion_Matrix/` - Neural Networks 2, Confusion Matrix (pending catchup)
-- `07/` - Bank loan prediction: comparing Logistic Regression, Random Forest, Neural Networks
+- `07/` - Bank loan prediction: comparing Logistic Regression, Random Forest, Neural Networks; MNIST digit classification with confusion matrices
 
 ## Development Environment
 - **Python Environment**: Use the existing `.venv` virtual environment
@@ -69,6 +69,10 @@ Current modules:
   - Handle missing values: `SimpleImputer(strategy='mean')`
   - Train/test split: `train_test_split(X, y, test_size=0.2)`
 - **Model Comparison Pattern**: Test multiple algorithms (Logistic Regression, Random Forest, Neural Net) on same dataset
+- **Confusion Matrix Pattern** (Week 7+):
+  - Use `confusion_matrix` from sklearn.metrics
+  - Evaluate classification results beyond simple accuracy
+  - Common with MNIST digit classification: `mnist = load_digits()`
 - **Minimal Documentation**: Brief Danish comments explaining what code does, not theory
 - **Visual Results**: Every exercise should show a plot demonstrating the concept
 - **Practical Learning**: Focus on doing and understanding through implementation
