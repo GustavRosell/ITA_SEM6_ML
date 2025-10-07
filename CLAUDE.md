@@ -11,8 +11,11 @@ This is a 15-week ML course organized by weekly modules. Each week follows this 
 Current modules:
 - `01_Intro/` - Python basics, lists, GUI programming with Tkinter
 - `02_Linear_Regression/` - NumPy, matplotlib, linear regression implementations
-- `03_Logistic_Regression/` - (Structure ready)
-- `04_Neural_Networks/` - (Structure ready)
+- `03_Logistic_Regression/` - Logistic regression with sklearn, decision boundaries
+- `04_Neural_Networks/` - SVM with kernels, K-means clustering
+- `05_Neural_Net_Intro/` - Neural Network introduction (pending catchup)
+- `06_Neural_Net_2_Confusion_Matrix/` - Neural Networks 2, Confusion Matrix (pending catchup)
+- `07/` - Bank loan prediction: comparing Logistic Regression, Random Forest, Neural Networks
 
 ## Development Environment
 - **Python Environment**: Use the existing `.venv` virtual environment
@@ -20,10 +23,11 @@ Current modules:
   source .venv/bin/activate
   ```
 - **Python Version**: 3.13.7
-- **Key Dependencies**: numpy, matplotlib, jupyter, tkinter (built-in)
-- **Jupyter Notebooks**: Used for some exercises (particularly in week 2+)
+- **Key Dependencies**: numpy, matplotlib, jupyter, sklearn, seaborn, tkinter (built-in)
+- **Running exercises**:
   ```bash
-  jupyter notebook  # or jupyter lab
+  python3 path/to/exercise.py  # For standalone Python files
+  jupyter notebook             # For .ipynb notebook files
   ```
 
 ## Code Style & Philosophy - IMPORTANT!
@@ -55,7 +59,16 @@ Current modules:
 
 ## Code Architecture & Patterns
 - **Exercise Progression**: Build incrementally, each exercise teaches one core concept
-- **Mathematical Focus**: Implement algorithms from scratch using NumPy, avoid sklearn unless needed
+- **Mathematical Focus**: Implement algorithms from scratch using NumPy in early modules
+- **sklearn Integration**: Used in later modules (03+) for logistic regression, SVM, clustering
+  - Still extract parameters in European notation (a, b, c) not (theta)
+  - Keep code minimal even when using sklearn
+- **Data Preprocessing Pattern** (Week 7+):
+  - Load CSV with pandas: `pd.read_csv('../resources/data.csv')`
+  - One-hot encode categoricals: `pd.get_dummies(df, drop_first=True)`
+  - Handle missing values: `SimpleImputer(strategy='mean')`
+  - Train/test split: `train_test_split(X, y, test_size=0.2)`
+- **Model Comparison Pattern**: Test multiple algorithms (Logistic Regression, Random Forest, Neural Net) on same dataset
 - **Minimal Documentation**: Brief Danish comments explaining what code does, not theory
 - **Visual Results**: Every exercise should show a plot demonstrating the concept
 - **Practical Learning**: Focus on doing and understanding through implementation
