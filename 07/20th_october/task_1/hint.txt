@@ -1,0 +1,1 @@
+df.loc[df['grade']=='0', 'grade'] = '2'
