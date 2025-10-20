@@ -1,0 +1,51 @@
+Exercise 62 - Confusion Matrix
+================================
+
+En confusion matrix er en tabel, der bruges til at beskrive performance af en
+classification model på test data, hvor de sande værdier er kendte.
+
+Givet denne confusion matrix:
+
+                n=165    Predicted: NO    Predicted: YES
+    Actual: NO              50                  10
+    Actual: YES              5                 100
+
+Spørgsmål:
+
+1. Hvor ofte (i procent) er denne model korrekt?
+
+
+2. True Positive Rate: Når det faktisk er "yes", hvor ofte forudsiger modellen "yes"?
+
+
+3. False Positive Rate: Når det faktisk er "no", hvor ofte forudsiger modellen "yes"?
+
+
+Notér dine svar nedenfor:
+--------------------------
+
+SVAR 1 - Accuracy:
+Korrekte predictions: TP + TN = 100 + 50 = 150
+Totale predictions: 165
+Accuracy = 150/165 = 0.909 = 90.9%
+
+SVAR 2 - True Positive Rate (Recall/Sensitivity):
+TPR = TP / (TP + FN)
+TPR = 100 / (100 + 5) = 100/105 = 0.952 = 95.2%
+
+SVAR 3 - False Positive Rate:
+FPR = FP / (FP + TN)
+FPR = 10 / (10 + 50) = 10/60 = 0.167 = 16.7%
+
+FORMLER AT HUSKE:
+==================
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+Precision = TP / (TP + FP)
+Recall (TPR) = TP / (TP + FN)
+F1-score = 2 * (Precision * Recall) / (Precision + Recall)
+FPR = FP / (FP + TN)
+
+Confusion Matrix Layout:
+                    Predicted: 0    Predicted: 1
+    Actual: 0           TN              FP
+    Actual: 1           FN              TP

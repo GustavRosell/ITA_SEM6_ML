@@ -1,0 +1,165 @@
+Exercise 65 - Titanic Eksperimenter Log
+=========================================
+
+Formål: Opnå > 64% accuracy (baseline = altid forudsige "død")
+
+SYSTEMATISK EKSPERIMENTERING:
+==============================
+
+BASELINE SETUP:
+---------------
+- Hidden layers: (8, 8)
+- Max iter: 1000
+- Missing data: fillna(mean)
+- Scaler: StandardScaler
+- Random state: 0
+
+Resultat: _______% accuracy
+
+
+EKSPERIMENT 1 - Netværkstopologi:
+----------------------------------
+Test forskellige hidden_layer_sizes:
+
+hidden_layer_sizes=(5)
+Resultat: _______% accuracy
+TP=___ TN=___ FP=___ FN=___
+
+hidden_layer_sizes=(10)
+Resultat: _______% accuracy
+TP=___ TN=___ FP=___ FN=___
+
+hidden_layer_sizes=(5, 5)
+Resultat: _______% accuracy
+TP=___ TN=___ FP=___ FN=___
+
+hidden_layer_sizes=(10, 10)
+Resultat: _______% accuracy
+TP=___ TN=___ FP=___ FN=___
+
+hidden_layer_sizes=(10, 10, 10)
+Resultat: _______% accuracy
+TP=___ TN=___ FP=___ FN=___
+
+hidden_layer_sizes=(20, 10, 5)
+Resultat: _______% accuracy
+TP=___ TN=___ FP=___ FN=___
+
+Bedste: _______________
+
+
+EKSPERIMENT 2 - Missing Data Håndtering:
+-----------------------------------------
+Brug bedste netværk fra Eksperiment 1.
+
+Metode 1: fillna(0)
+Resultat: _______% accuracy
+
+Metode 2: fillna(mean) [~29]
+Resultat: _______% accuracy
+
+Metode 3: fillna(median)
+Resultat: _______% accuracy
+
+Metode 4: dropna() [færre samples]
+Resultat: _______% accuracy
+
+Bedste: _______________
+
+
+EKSPERIMENT 3 - Uden Scaler:
+-----------------------------
+Test om StandardScaler er nødvendig.
+
+Med StandardScaler:
+Resultat: _______% accuracy
+
+Uden StandardScaler (kommenter scaler ud):
+Resultat: _______% accuracy
+
+Konklusion: _______________________
+
+
+EKSPERIMENT 4 - Max Iterations:
+--------------------------------
+Test forskellige max_iter værdier.
+
+max_iter=100
+Resultat: _______% accuracy
+Convergence warning? JA / NEJ
+
+max_iter=500
+Resultat: _______% accuracy
+
+max_iter=1000
+Resultat: _______% accuracy
+
+max_iter=2000
+Resultat: _______% accuracy
+
+Bedste: _______________
+
+
+EKSPERIMENT 5 - Activation Functions:
+--------------------------------------
+Test forskellige activation functions.
+
+activation='relu' (default)
+Resultat: _______% accuracy
+
+activation='tanh'
+Resultat: _______% accuracy
+
+activation='logistic'
+Resultat: _______% accuracy
+
+Bedste: _______________
+
+
+EKSPERIMENT 6 - Batch Size:
+----------------------------
+Test forskellige batch_size værdier.
+
+batch_size='auto' (default)
+Resultat: _______% accuracy
+
+batch_size=32
+Resultat: _______% accuracy
+
+batch_size=64
+Resultat: _______% accuracy
+
+batch_size=128
+Resultat: _______% accuracy
+
+Bedste: _______________
+
+
+FINAL BEDSTE KONFIGURATION:
+============================
+hidden_layer_sizes = _______________
+max_iter = _______________
+Missing data = _______________
+StandardScaler = JA / NEJ
+activation = _______________
+batch_size = _______________
+
+FINAL ACCURACY: _______%
+
+Confusion Matrix:
+                Predicted: 0    Predicted: 1
+Actual: 0           ___             ___
+Actual: 1           ___             ___
+
+TP=___ TN=___ FP=___ FN=___
+
+Precision: _______
+Recall: _______
+F1-score: _______
+
+
+KONKLUSIONER:
+=============
+1. Vigtigste hyperparameter: _______________________
+2. Overraskende fund: _______________________
+3. Forbedring over baseline (64%): _______% point

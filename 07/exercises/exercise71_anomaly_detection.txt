@@ -1,0 +1,89 @@
+Exercise 71 - Anomaly Detection
+================================
+
+I grupper af 2-3.
+
+Spørgsmål:
+Hvordan kan du spotte en anomali i et dataset?
+Hvad kan du gøre? Hvad bør du gøre?
+
+
+Diskussion og Svar:
+-------------------
+
+HVAD ER EN ANOMALI?
+- Et datapunkt der afviger signifikant fra de fleste andre data
+- Outliers, fejl, eller genuint usædvanlige observationer
+
+METODER TIL AT SPOTTE ANOMALIER:
+
+1. VISUALISERING:
+   - Scatter plots (spot outliers visuelt)
+   - Box plots (se quartiles og outliers)
+   - Histogrammer (se distribution)
+
+2. STATISTISKE METODER:
+   - Z-score (hvor mange standardafvigelser fra mean?)
+   - IQR (Interquartile Range)
+   - Percentiler (top/bottom 1%)
+
+3. MACHINE LEARNING METODER:
+   - Isolation Forest
+   - One-Class SVM
+   - Local Outlier Factor (LOF)
+   - Clustering (K-Means) - datapunkter langt fra clusters
+
+HVAD KAN DU GØRE?
+
+1. UNDERSØG ANOMALIEN:
+   - Er det en datafejl? (måle
+
+fejl, indtastningsfejl)
+   - Er det et genuint usædvanligt tilfælde?
+   - Dokumentér hvad du finder
+
+2. HÅNDTERING STRATEGIER:
+
+   A) FJERN ANOMALIEN hvis:
+      - Det er en klar datafejl
+      - Det forvrider modellen kraftigt
+      - Risiko: Mister potentielt vigtig information
+
+   B) BEHOLD ANOMALIEN hvis:
+      - Det er en legitim observation
+      - Anomalier er interessante for problemet
+      - Eksempel: Fraud detection - anomalier ER signalet!
+
+   C) TRANSFORMÉR DATA:
+      - Log transformation for skewed data
+      - Robust scalers (mindre følsomme overfor outliers)
+      - Cap outliers (winsorization)
+
+   D) SEPARAT MODEL:
+      - Træn én model uden anomalier
+      - Træn én model MED anomalier
+      - Sammenlign performance
+
+3. FEATURE ENGINEERING:
+   - Opret "distance_from_center" feature
+   - Opret "is_anomaly" flag
+   - Gruppe anomalier separat
+
+HVAD BØR DU GØRE?
+
+BEST PRACTICES:
+1. **Dokumentér**: Log hvilke anomalier du finder og hvorfor
+2. **Forstå kontekst**: Kend dit domæne - hvad er normalt/unormalt?
+3. **Test begge**: Prøv model med og uden anomalier
+4. **Vær forsigtig**: Fjern ikke data blindt - undersøg først!
+5. **Kommunikér**: Diskutér med domæne-eksperter
+
+EKSEMPEL - TITANIC:
+- Anomali: Passager med Age=0 eller Age=200
+- Handling: Sandsynligvis fejl → Erstat med median eller drop
+- Anomali: Fare=512 (meget høj) men legitim første klasse
+- Handling: Behold - det er reel information
+
+KONKLUSION:
+Anomalier kræver omtanke. Automatisk fjernelse er sjældent rigtigt.
+Forstå først, handlert derefter!

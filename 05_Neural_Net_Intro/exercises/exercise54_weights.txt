@@ -1,0 +1,32 @@
+Exercise 54 - Weights and Neural Networks
+==========================================
+
+Vægtene på forbindelserne mellem neuroner i et neural network initialiseres normalt til (små) tilfældige tal, før træningen starter.
+
+Spørgsmål:
+Hvorfor tror du, det er sådan?
+
+
+Notér dit svar nedenfor:
+-------------------------
+
+SVAR:
+Vægte initialiseres til små tilfældige tal af følgende årsager:
+
+1. SYMMETRY BREAKING:
+   - Hvis alle vægte er ens, lærer alle neuroner det samme
+   - Random vægte sikrer forskellige læringsveje
+
+2. GRADIENT DESCENT:
+   - Starter optimization fra forskelligt punkt
+   - Undgår at sidde fast i symmetriske løsninger
+
+3. STØRRELSE (små vægte):
+   - Store vægte → saturated activation functions → vanishing gradients
+   - Små vægte → bedre gradient flow i backpropagation
+
+4. UNDGÅ BIAS:
+   - Zero eller konstante vægte giver ingen læring
+   - Random starter exploration af løsningsrummet
+
+Typisk: Normal distribution med mean=0, std=0.01

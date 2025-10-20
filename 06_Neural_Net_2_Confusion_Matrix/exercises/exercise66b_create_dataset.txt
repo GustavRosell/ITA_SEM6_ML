@@ -1,0 +1,53 @@
+Exercise 66b - Create Your Own Dataset
+=======================================
+
+I grupper af 2 eller 3.
+
+Formål:
+-------
+Find eller skab jeres eget dataset og anvend neural network klassificering.
+
+Se ressourcen: Exercise_CreateOwnDataSet_ChatGPT.pdf
+
+Instruktioner:
+--------------
+
+1. FIND ET DATASET:
+   - Kaggle.com (mange gratis datasets)
+   - UCI Machine Learning Repository
+   - Eller skab jeres eget dataset
+
+2. DATASET KRAV:
+   - Klassificeringsproblem (ikke regression)
+   - Minimum 100 samples
+   - Mindst 2 features
+   - Binær eller multi-class classification
+
+3. IMPLEMENTÉR:
+   - Indlæs data med Pandas
+   - Håndter missing data
+   - Split i train/test (80/20 eller 75/25)
+   - Feature scaling med StandardScaler
+   - Træn MLPClassifier
+   - Evaluer med confusion matrix
+
+4. EKSPERIMENTÉR:
+   - Prøv forskellige netværksarkitekturer
+   - Optimer hyperparametre
+   - Dokumentér jeres resultater
+
+5. RAPPORT (kort):
+   - Beskriv dataset (hvad, hvor mange samples, features)
+   - Bedste accuracy opnået
+   - Hvilken netværkskonfiguration virkede bedst?
+   - Confusion matrix visualisering
+
+EKSEMPEL DATASETS:
+------------------
+- Wine Quality Classification
+- Heart Disease Prediction
+- Breast Cancer Classification (sklearn.datasets)
+- Iris Dataset (forskellige features end petal)
+- Fashion MNIST (mere avanceret)
+
+Se PDF'en for flere detaljer og inspirering!

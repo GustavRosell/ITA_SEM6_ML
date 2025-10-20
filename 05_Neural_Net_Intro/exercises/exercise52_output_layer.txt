@@ -1,0 +1,38 @@
+Exercise 52 - Output Layer
+===========================
+
+Overvej et neural network til klassificering af email spam.
+
+Spørgsmål 1:
+Hvor mange neuroner ville du have brug for i output layer?
+
+
+Overvej et andet netværk til klassificering af håndskrevne cifre (0 til 9 - MNIST dataset).
+
+Spørgsmål 2:
+Hvor mange neuroner ville du have brug for i output layer?
+
+
+Spørgsmål 3:
+Hvad ville det være rimeligt at forvente, at værdierne i output layer faktisk repræsenterer?
+
+
+Notér dine svar nedenfor:
+--------------------------
+
+SVAR 1 - Email Spam:
+1 neuron i output layer
+- Output: 0 = ikke spam, 1 = spam (binær klassifikation)
+- Alternativt: 2 neuroner (one-hot encoding)
+
+SVAR 2 - MNIST Cifre (0-9):
+10 neuroner i output layer
+- Én neuron per ciffer (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+- Multi-class klassifikation
+
+SVAR 3 - Hvad repræsenterer værdierne?
+Output layer værdierne repræsenterer sandsynligheder (probabilities):
+- Ved softmax activation: Hver neuron viser sandsynlighed for den klasse
+- Eksempel MNIST: [0.01, 0.05, 0.89, 0.02, ...] = 89% chance for "2"
+- Højeste værdi = predicted class
+

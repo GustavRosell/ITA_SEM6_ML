@@ -1,0 +1,82 @@
+Exercise 53 - Activation Functions
+===================================
+
+Læs kapitel 10 i bogen "Hands-On Machine Learning".
+
+Opgave:
+Find alle de forskellige activation functions, der bruges, og tegn en graf af dem for at få en fornemmelse af, hvordan de ser ud.
+
+Prøv at tænke over ulemper, der kunne være et problem for hver activation function.
+
+Activation functions at undersøge:
+----------------------------------
+- Step function
+- Sigmoid (logistic)
+- Tanh (hyperbolic tangent)
+- ReLU (Rectified Linear Unit)
+- Leaky ReLU
+- ELU (Exponential Linear Unit)
+- SELU (Scaled ELU)
+- Softmax
+
+Notér fordele og ulemper:
+-------------------------
+
+1. STEP FUNCTION
+   Graf: __|‾‾ (0 eller 1)
+   + Simple binær output
+   - Ingen gradient → kan ikke bruge backpropagation
+   - BRUGES IKKE i moderne neural nets
+
+2. SIGMOID (Logistic)
+   Graf: S-kurve (0 til 1)
+   + Output som sandsynlighed [0,1]
+   + Smooth gradient
+   - Vanishing gradient problem (flade ender)
+   - Træg for dybe netværk
+   - Computationally dyr (exp())
+
+3. TANH (Hyperbolic Tangent)
+   Graf: S-kurve (-1 til 1)
+   + Zero-centered (bedre end sigmoid)
+   + Stærkere gradient end sigmoid
+   - Stadig vanishing gradient problem
+   - Træg for meget dybe nets
+
+4. ReLU (Rectified Linear Unit)
+   Graf: __/‾‾ (0 eller lineær)
+   + Meget hurtig computation
+   + Ingen vanishing gradient (for x>0)
+   + De facto standard!
+   - "Dying ReLU" problem (neuroner kan dø)
+   - Ikke zero-centered
+
+5. LEAKY ReLU
+   Graf: _/‾‾ (lille slope for x<0)
+   + Løser dying ReLU problem
+   + Hurtig som ReLU
+   - Ekstra hyperparameter (slope)
+
+6. ELU (Exponential Linear Unit)
+   Graf: curve/‾‾ (smooth for x<0)
+   + Zero-centered mean activation
+   + Ingen dying neurons
+   - Dyrere computation (exp())
+
+7. SELU (Scaled ELU)
+   Graf: Scaled ELU kurve
+   + Self-normalizing properties
+   + Meget stabil training
+   - Kræver specielle conditions
+
+8. SOFTMAX (Output layer)
+   Graf: N/A (probability distribution)
+   + Giver sandsynlighedsfordeling
+   + Sum = 1.0
+   + Perfekt til multi-class classification
+   - Kun til output layer
+
+ANBEFALING:
+- Hidden layers: Start med ReLU
+- Output binary: Sigmoid
+- Output multi-class: Softmax

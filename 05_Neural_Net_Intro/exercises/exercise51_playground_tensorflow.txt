@@ -1,0 +1,61 @@
+Exercise 51 - Playground TensorFlow
+====================================
+
+Se ressourcen: PlaygroundTensorFlowExercises.pdf
+
+Besøg: https://playground.tensorflow.org/
+
+Del 1 - Circles dataset:
+------------------------
+- Brug "Circles dataset" (uden noise først, eksperimentér derefter med noise)
+- Brug ReLU activation function
+- Spørgsmål:
+  * Hvor mange hidden layers og neuroner skal der til for at klassificere korrekt?
+  * Hvad er en passende learning rate? (hvad er for lavt/højt?)
+  * Hvad er det mindste netværk der klassificerer korrekt?
+  * Hvilken activation function virker bedst?
+
+Del 2 - Spiral dataset:
+-----------------------
+- Brug "Spiral dataset"
+- Spørgsmål:
+  * Hvor mange hidden layers behøves for korrekt klassifikation?
+  * Minimum antal neuroner i hidden layers?
+  * Passende learning rate for rimelig training time?
+  * Hvilken activation function brugte du?
+
+Del 3 - Optimering:
+-------------------
+- Kan du klassificere spiral dataset med et endnu mindre neural net?
+- Prøv forskellige activation functions
+
+Notér dine resultater nedenfor:
+--------------------------------
+
+DEL 1 - CIRCLES RESULTATER:
+✓ Optimal konfiguration: 2 hidden layers × 3 neurons
+✓ Learning rate: 0.03 (god balance mellem hastighed og stabilitet)
+✓ Activation function: ReLU
+✓ Observations:
+  - Learning rate 0.001 er ekstremt langsom (10-30x længere træning)
+  - Learning rate 0.03 giver hurtig konvergens
+  - 2×3 netværk er minimalt og effektivt for circles
+
+DEL 2 - SPIRAL RESULTATER:
+✓ Kræver mere kompleks arkitektur end circles
+✓ Estimat: 3-4 hidden layers × 4-6 neurons
+✓ Learning rate: 0.03
+✓ Activation function: ReLU eller Tanh
+✓ Træning: ~500-1500 epochs for konvergens
+✓ Test loss mål: < 0.1
+
+DEL 3 - OPTIMERING:
+✓ For circles: 2×3 er allerede meget optimalt
+✓ For spiral: Kan eksperimentere med features (X₁², X₂², X₁X₂)
+  for at reducere antal layers/neurons
+
+KEY LEARNINGS:
+- Learning rate er critical: For lav = langsom, for høj = ustabil
+- Circles kræver minimal arkitektur (2 layers)
+- Spiral kræver dybere netværk (3-4+ layers)
+- ReLU virker godt til begge datasets

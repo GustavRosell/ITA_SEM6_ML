@@ -1,0 +1,157 @@
+Exercise 72 - Underfitting og Overfitting
+==========================================
+
+I grupper af 2-3.
+
+Spørgsmål:
+Hvis din model underfitter eller overfitter, hvad kan du gøre for at forbedre modellen?
+Hvad kunne du prøve?
+
+
+Diskussion og Svar:
+-------------------
+
+HVAD ER UNDERFITTING OG OVERFITTING?
+
+UNDERFITTING (High Bias):
+- Model er for simpel
+- Lærer ikke patterns fra data
+- Dårlig performance på BÅDE training OG test data
+- Symptom: Lav accuracy på alt
+
+OVERFITTING (High Variance):
+- Model er for kompleks
+- Memorerer training data i stedet for at generalisere
+- God performance på training, dårlig på test
+- Symptom: Stor gap mellem train og test accuracy
+
+
+LØSNINGER TIL UNDERFITTING:
+===========================
+
+1. ØG MODEL KOMPLEKSITET:
+   - Flere features
+   - Flere layers (neural networks)
+   - Flere estimators (Random Forest)
+   - Dybere træer (Decision Trees)
+   - Højere polynomial degree (regression)
+
+2. REDUCER REGULARIZATION:
+   - Lavere alpha (Ridge/Lasso)
+   - Mindre dropout (neural networks)
+   - Mindre L1/L2 penalty
+
+3. TRÆN LÆNGERE:
+   - Flere epochs
+   - Flere iterations
+   - Lad model konvergere
+
+4. BEDRE FEATURES:
+   - Feature engineering
+   - Tilføj interaction terms
+   - Polynomial features
+   - Domain knowledge features
+
+5. ANDEN MODEL:
+   - Prøv mere kraftfuld algorithm
+   - Linear → Polynomial
+   - Logistic Regression → Random Forest
+   - Simple → Deep Neural Network
+
+
+LØSNINGER TIL OVERFITTING:
+==========================
+
+1. SKAFF MERE DATA:
+   - **Bedste løsning!**
+   - Flere træningssamples
+   - Data augmentation
+
+2. REDUCER MODEL KOMPLEKSITET:
+   - Færre features (feature selection)
+   - Færre layers/neurons (neural networks)
+   - Færre estimators (Random Forest)
+   - Lavere max_depth (trees)
+   - Lavere polynomial degree
+
+3. REGULARIZATION:
+   - L1 (Lasso) - feature selection
+   - L2 (Ridge) - shrink weights
+   - Elastic Net - kombination
+   - Dropout (neural networks)
+   - Early stopping
+
+4. CROSS-VALIDATION:
+   - K-fold cross-validation
+   - Evaluér på multiple splits
+   - Mere robust vurdering
+
+5. ENSEMBLE METHODS:
+   - Bagging (Random Forest)
+   - Boosting (XGBoost, AdaBoost)
+   - Averaging multiple models
+
+6. FEATURE REDUCTION:
+   - PCA (Principal Component Analysis)
+   - Feature selection
+   - Remove correlated features
+
+7. PRUNING (Decision Trees):
+   - Max depth
+   - Min samples per leaf
+   - Min samples for split
+
+
+DIAGNOSTICERING:
+================
+
+Plot Learning Curves:
+- Training score vs test score over time/epochs
+- Konvergerer de? → God
+- Train høj, test lav? → Overfitting
+- Begge lave? → Underfitting
+
+```python
+from sklearn.model_selection import learning_curve
+
+train_sizes, train_scores, test_scores = learning_curve(
+    model, X, y, cv=5,
+    train_sizes=np.linspace(0.1, 1.0, 10)
+)
+```
+
+
+EKSEMPEL WORKFLOW:
+==================
+
+1. START SIMPELT:
+   - Baseline model (logistic regression, simple tree)
+   - Mål performance
+
+2. ER DER UNDERFITTING?
+   - Ja → Øg kompleksitet gradvist
+   - Nej → Fortsæt
+
+3. ER DER OVERFITTING?
+   - Ja → Tilføj regularization
+   - Nej → Fortsæt
+
+4. FINE-TUNE:
+   - Hyperparameter tuning
+   - Cross-validation
+   - Feature engineering
+
+5. SAMMENLIGN:
+   - Test forskellige modeller
+   - Vælg bedste baseret på test performance
+
+
+HUSK:
+=====
+- Start simpelt, øg kompleksitet gradvist
+- Mere data > fancy algoritmer
+- Cross-validate altid!
+- Test set må ALDRIG bruges til tuning
+- Balance mellem bias og variance
+
+"All models are wrong, but some are useful" - George Box

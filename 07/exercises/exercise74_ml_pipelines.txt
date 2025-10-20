@@ -1,0 +1,353 @@
+Exercise 74 - Machine Learning Pipelines
+=========================================
+
+I grupper af 2-3.
+
+Spørgsmål (i meget brede træk):
+1. Hvilke steps tror du vi skal igennem i en ML pipeline til at lære en bil
+   at holde sig på vejen (med markeringer/striber på vejen)?
+
+2. Brug din fantasi: Hvilke steps (i meget brede træk) tror du et ML system
+   skal igennem for at lære bilsystemet at læse skilte ved vejen?
+   At spotte mennesker på vejen?
+
+
+Diskussion og Svar:
+-------------------
+
+GENEREL ML PIPELINE STRUKTUR:
+==============================
+
+1. PROBLEM DEFINITION
+2. DATA COLLECTION
+3. DATA PREPROCESSING
+4. FEATURE ENGINEERING
+5. MODEL SELECTION
+6. TRAINING
+7. EVALUATION
+8. DEPLOYMENT
+9. MONITORING
+
+
+EKSEMPEL 1: BIL HOLDER PÅ VEJEN
+================================
+
+PROBLEM DEFINITION:
+- Input: Kamera billede fra bil
+- Output: Styrevinkel (venstre/højre/lige ud)
+- Supervised learning problem
+- Regression (continuous steering angle)
+
+DATA COLLECTION:
+- Optag video mens du kører
+- Gem billeder + styrevinkel fra hver frame
+- Behov: 10,000+ samples
+- Forskellige vej-typer, vejr, lys
+
+DATA PREPROCESSING:
+- Crop billede (kun vej, ikke himmel)
+- Resize til standard størrelse (640x480 → 200x66)
+- Normalisering (pixel values 0-255 → 0-1)
+- Grayscale eller RGB?
+- Håndter missing data
+
+FEATURE ENGINEERING:
+- Option 1: Raw pixels som features
+- Option 2: Detect lane lines først
+  * Edge detection (Canny)
+  * Hough transform (find lines)
+  * Calculate lane center
+  * Distance from center = feature
+- Option 3: Deep Learning (CNN learns features)
+
+MODEL SELECTION:
+- Simple: Linear regression på lane features
+- Medium: Random Forest
+- Advanced: Convolutional Neural Network (CNN)
+  * Input: Raw image
+  * Output: Steering angle
+  * Architecture: Conv layers → Dense → Output
+
+TRAINING:
+- Split data: 80% train, 10% validation, 10% test
+- Augment data:
+  * Flip images (mirror)
+  * Adjust brightness
+  * Add synthetic shadows
+- Train with backpropagation
+- Monitor validation loss
+
+EVALUATION:
+- Test på nye veje (aldrig set før)
+- Metrics:
+  * Mean Absolute Error (MAE) på steering angle
+  * Success rate (holder på vej?)
+  * Failure analysis (hvor går det galt?)
+
+DEPLOYMENT:
+- Optimize model for real-time (< 30ms inference)
+- Test i simulator først
+- Test på lukket bane
+- Gradual rollout
+
+MONITORING:
+- Log fejl og edge cases
+- Continuous learning fra nye data
+- A/B testing af nye modeller
+
+
+EKSEMPEL 2: LÆSE SKILTE VED VEJEN
+==================================
+
+PROBLEM DEFINITION:
+- Input: Billede med potentielt skilt
+- Output: Hvilken type skilt + position
+- Object detection + classification
+- Multi-class classification (50+ skilt-typer)
+
+DATA COLLECTION:
+- Dataset af trafikskilte
+- Labels: Bounding box + kategori
+- Varierende:
+  * Afstand (nær/fjern)
+  * Vinkel (front/side)
+  * Vejr (sol/regn/sne)
+  * Okklusion (delvist skjult)
+- Eksisterende datasets: GTSRB (German Traffic Sign Recognition Benchmark)
+
+DATA PREPROCESSING:
+- Detect potential sign regions (color, shape)
+- Crop til bounding box
+- Resize til standard size (32x32)
+- Augmentation:
+  * Rotation (-15° to +15°)
+  * Brightness variation
+  * Blur (simulate motion/distance)
+  * Perspective transform
+
+FEATURE ENGINEERING:
+- Option 1: Handcrafted features
+  * Color histogram (rød, blå, gul)
+  * Shape detection (cirkel, trekant, polygon)
+  * HOG (Histogram of Oriented Gradients)
+- Option 2: Deep Learning (CNN learns features automatisk)
+  * Conv layers extract hierarchical features
+  * Low level: Edges, colors
+  * High level: Shapes, patterns
+
+MODEL SELECTION:
+- Object Detection: YOLO, Faster R-CNN, SSD
+  * Find WHERE signs are
+- Classification: CNN (LeNet, ResNet, EfficientNet)
+  * Classify WHAT type of sign
+
+PIPELINE:
+1. Object Detection model finds all potential signs in image
+2. Classification model identifies each sign type
+3. Or: End-to-end model (YOLO) does both
+
+TRAINING:
+- Transfer Learning:
+  * Start fra pre-trained ImageNet model
+  * Fine-tune på traffic signs
+  * Hurtigere + bedre results
+- Techniques:
+  * Data augmentation
+  * Batch normalization
+  * Dropout for regularization
+  * Learning rate scheduling
+
+EVALUATION:
+- Precision: Hvor mange detections er korrekte?
+- Recall: Hvor mange signs fandt vi?
+- mAP (mean Average Precision)
+- Speed: Frames per second (FPS)
+- Test på forskellige conditions:
+  * Day/night
+  * Weather
+  * Occlusion
+
+DEPLOYMENT:
+- Embedded hardware (GPU in car)
+- Real-time constraints (> 30 FPS)
+- Model compression:
+  * Quantization
+  * Pruning
+  * Knowledge distillation
+- Fail-safe: Human override
+
+MONITORING:
+- Log confidence scores
+- Flag low-confidence detections for review
+- Continuous improvement from mistakes
+
+
+EKSEMPEL 3: SPOTTE MENNESKER PÅ VEJEN
+======================================
+
+PROBLEM DEFINITION:
+- Input: Video stream fra kamera
+- Output: Bounding boxes omkring mennesker
+- Object detection problem
+- Critical: Høj recall (aldrig miss a person!)
+
+DATA COLLECTION:
+- Pedestrian datasets:
+  * COCO (Common Objects in Context)
+  * CityPersons
+  * Caltech Pedestrian Dataset
+- Variationer:
+  * Forskellige positioner (stående, gående, løbende)
+  * Occlusion (delvist skjult)
+  * Scale (nær/fjern)
+  * Crowd scenarios
+
+DATA PREPROCESSING:
+- High resolution input (vigtig for fjerne personer)
+- Multi-scale processing
+- Temporal information (video frames)
+- Augmentation:
+  * Random crops
+  * Lighting conditions
+  * Synthetic occlusion
+
+FEATURE ENGINEERING:
+- Motion detection (optical flow)
+- Pose estimation keypoints
+- Or deep learning (automatic features)
+
+MODEL SELECTION:
+- YOLOv5, YOLOv8 (real-time)
+- Faster R-CNN (higher accuracy, slower)
+- EfficientDet (balance)
+- Multi-stage:
+  1. Propose regions likely to contain people
+  2. Classify and refine
+
+TRAINING:
+- Class imbalance handling (mange frames uden mennesker)
+- Hard negative mining
+- Focal loss (focus on hard examples)
+- Multi-task learning:
+  * Detection
+  * Pose estimation
+  * Distance estimation
+
+EVALUATION:
+- Metrics:
+  * Precision/Recall
+  * F1-score
+  * False Negatives (VERY CRITICAL!)
+- Test på edge cases:
+  * Children (smaller)
+  * Wheelchairs
+  * Groups/crowds
+  * Night time
+
+DEPLOYMENT:
+- Redundancy: Multiple cameras, sensors
+- Sensor fusion: Camera + LiDAR + Radar
+- Fail-safe mechanisms
+- Latency < 100ms
+
+MONITORING:
+- Log all near-misses
+- Human review of failures
+- Continuous retraining
+
+
+GENERELLE ML PIPELINE STEPS (REAL-WORLD):
+==========================================
+
+1. **PROBLEM FRAMING**
+   - Define success metrics
+   - Is ML the right solution?
+   - What data do we need?
+
+2. **DATA ACQUISITION**
+   - Collect
+   - Label (often expensive!)
+   - Version control
+
+3. **EXPLORATORY DATA ANALYSIS (EDA)**
+   - Understand distributions
+   - Spot anomalies
+   - Visualize relationships
+
+4. **DATA CLEANING**
+   - Handle missing values
+   - Remove duplicates
+   - Fix errors
+
+5. **FEATURE ENGINEERING**
+   - Create new features
+   - Transform existing ones
+   - Domain knowledge
+
+6. **DATA SPLITTING**
+   - Train/Validation/Test
+   - Stratified if imbalanced
+   - Time-based if time series
+
+7. **BASELINE MODEL**
+   - Simple model first
+   - Benchmark to beat
+
+8. **MODEL EXPERIMENTATION**
+   - Try different algorithms
+   - Hyperparameter tuning
+   - Cross-validation
+
+9. **ERROR ANALYSIS**
+   - What does model get wrong?
+   - Systematic patterns?
+   - Collect more data for failures
+
+10. **MODEL SELECTION**
+    - Based on test performance
+    - Consider complexity, speed, interpretability
+
+11. **DEPLOYMENT**
+    - API endpoint
+    - Batch processing
+    - Edge device
+    - A/B testing
+
+12. **MONITORING**
+    - Performance metrics
+    - Data drift detection
+    - Model degradation
+    - Retrain triggers
+
+
+KEY TAKEAWAYS:
+==============
+
+1. **ML Pipeline ≠ Just Training**
+   - 80% time: Data collection, cleaning, features
+   - 10% time: Training, tuning
+   - 10% time: Deployment, monitoring
+
+2. **Iteration is Key**
+   - Start simple
+   - Improve incrementally
+   - Learn from failures
+
+3. **Data > Algorithms**
+   - More good data > fancy model
+   - Clean data > big data
+   - Relevant features > many features
+
+4. **Real-world Constraints**
+   - Latency requirements
+   - Memory/compute budgets
+   - Safety-critical systems need redundancy
+   - Interpretability for regulated domains
+
+5. **Production is Different**
+   - Training environment ≠ production
+   - Data distribution shifts
+   - Edge cases you never trained on
+   - Need monitoring and retraining
+
+"Machine Learning is 90% data engineering and 10% model training"

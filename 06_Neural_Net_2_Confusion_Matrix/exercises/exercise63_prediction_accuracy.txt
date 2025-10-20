@@ -1,0 +1,38 @@
+Exercise 63 - Prediction Accuracy
+==================================
+
+Lad os sige, at du har en binær predictor hvor:
+TN = 12
+TP = 23
+FP = 5
+FN = 10
+
+Spørgsmål:
+Hvilken procentdel af de totale predictions klassificerede denne predictor korrekt?
+
+HINT: Procentdelen skal være et pænt rundt tal...!
+
+
+Notér dit svar nedenfor:
+-------------------------
+
+SVAR:
+
+Total predictions = TN + TP + FP + FN
+                  = 12 + 23 + 5 + 10
+                  = 50
+
+Correct predictions = TP + TN
+                    = 23 + 12
+                    = 35
+
+Accuracy = Correct predictions / Total predictions
+         = 35 / 50
+         = 0.70
+         = 70%
+
+FORMEL:
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+Dette er den mest basale måde at måle en classifiers performance på.
+Men pas på! Accuracy alene kan være misleading ved imbalanced datasets.

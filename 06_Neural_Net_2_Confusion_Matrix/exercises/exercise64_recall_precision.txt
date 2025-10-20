@@ -1,0 +1,70 @@
+Exercise 64 - Recall og Precision
+==================================
+
+Scenario:
+Vi har en zip code reader, og vi vil identificere et nummer som enten "5" eller "ikke 5".
+
+Vi laver en meget simpel algoritme, der ALTID forudsiger "5" - uanset hvad nummeret er (0,1,2..9).
+
+Antag vi har 100 samples:
+- 10 er faktisk "5" (10%)
+- 90 er ikke "5" (90%)
+
+Spørgsmål:
+1. Udfyld confusion matrix
+2. Hvad er recall? Er det en god værdi?
+3. Hvad er precision? Er det en god værdi?
+
+
+Notér dine svar nedenfor:
+--------------------------
+
+CONFUSION MATRIX:
+
+Vores algoritme forudsiger ALTID "5" (predicted = 1):
+
+                    Predicted: Not 5    Predicted: 5
+    Actual: Not 5          0                 90         (FP)
+    Actual: 5              0                 10         (TP)
+
+TN = 0   (vi forudsiger aldrig "ikke 5")
+FP = 90  (90 "ikke 5" forudsagt som "5")
+FN = 0   (vi forudsiger altid "5", så ingen FN)
+TP = 10  (10 "5" forudsagt korrekt som "5")
+
+
+SVAR 1 - Recall:
+Recall = TP / (TP + FN)
+       = 10 / (10 + 0)
+       = 10 / 10
+       = 1.0 = 100%
+
+Er det godt? JA! Vi finder alle "5"-ere (ingen false negatives).
+Men... det er misleading fordi vi også kalder ALLE for "5".
+
+
+SVAR 2 - Precision:
+Precision = TP / (TP + FP)
+          = 10 / (10 + 90)
+          = 10 / 100
+          = 0.10 = 10%
+
+Er det godt? NEJ! Kun 10% af vores "5" predictions er korrekte.
+90% af tiden forudsiger vi "5" når det ikke er en "5".
+
+
+KONKLUSION:
+===========
+Dette eksempel viser hvorfor både Recall OG Precision er vigtige!
+
+- High Recall, Low Precision = Vi fanger alle positive, men har mange false alarms
+- Low Recall, High Precision = Vi er sikre når vi siger "yes", men misser mange
+- Vi vil have BÅDE høj recall OG høj precision!
+
+F1-score kombinerer begge:
+F1 = 2 * (Precision * Recall) / (Precision + Recall)
+   = 2 * (0.10 * 1.0) / (0.10 + 1.0)
+   = 2 * 0.10 / 1.10
+   = 0.18 = 18%
+
+Selv med 100% recall er F1-score dårlig pga. lav precision!

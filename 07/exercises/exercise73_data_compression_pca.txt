@@ -1,0 +1,219 @@
+Exercise 73 - Data Compression og PCA
+======================================
+
+I grupper af 2-3.
+
+Spørgsmål:
+1. Hvorfor er data compression nyttigt i machine learning?
+2. Er data compression altid en god ting?
+3. Kan du bruge PCA dimensionality reduction til at få færre features,
+   og dermed gøre din model mindre tilbøjelig til at overfit?
+
+
+Diskussion og Svar:
+-------------------
+
+HVAD ER DATA COMPRESSION / DIMENSIONALITY REDUCTION?
+=====================================================
+
+Reduktion af antal features/dimensions i data mens vigtig information bevares.
+
+METODER:
+- **PCA (Principal Component Analysis)** - lineær transformation
+- t-SNE - non-lineær (kun visualization)
+- Autoencoders - neural network baseret
+- Feature selection - vælg subset af eksisterende features
+
+
+HVORFOR ER DATA COMPRESSION NYTTIGT?
+====================================
+
+1. VISUALISERING:
+   - Kan ikke visualisere 100D data
+   - PCA → 2D/3D for plotting
+   - Forstå data struktur
+   - Spot clusters og patterns
+
+2. HASTIGHED:
+   - Færre features = hurtigere træning
+   - Hurtigere predictions
+   - Mindre memory forbrug
+   - Vigtigt for store datasets
+
+3. REDUCE OVERFITTING:
+   - Færre dimensions = mindre risiko for overfitting
+   - Simplere model
+   - Curse of dimensionality
+
+4. NOISE REDUCTION:
+   - PCA fjerner dimensioner med lav variance
+   - Fjerner potentielt noise
+   - Fokuserer på vigtig signal
+
+5. MULTICOLLINEARITY:
+   - PCA components er orthogonale
+   - Ingen korrelation mellem components
+   - Bedre for nogle algorithms (Linear Regression)
+
+6. FEATURE ENGINEERING:
+   - PCA laver nye combined features
+   - Kan fange komplekse relationships
+   - Automatisk feature creation
+
+
+ER DATA COMPRESSION ALTID EN GOD TING?
+======================================
+
+**NEJ! Der er trade-offs:**
+
+ULEMPER VED PCA/COMPRESSION:
+
+1. **TAB AF INFORMATION:**
+   - Du smider dimensions væk
+   - Selv med 95% explained variance, mister du 5%
+   - De 5% kan være vigtige!
+
+2. **INTERPRETABILITY:**
+   - PCA components er kombinationer af original features
+   - Svært at fortolke: "PC1 = 0.3*age + 0.5*income - 0.2*..."
+   - Mister domain meaning
+   - "Black box" problem
+
+3. **LINEARITY ASSUMPTION:**
+   - PCA er lineær transformation
+   - Fanger ikke non-lineære relationships
+   - Kan misse vigtige patterns
+
+4. **SCALABILITY:**
+   - PCA kræver fit på hele dataset
+   - Computationally expensive for meget store datasets
+   - SVD computation kan være langsom
+
+5. **OVERFITTING PÅ PCA:**
+   - Hvis du vælger antal components baseret på test performance
+   - Data leakage problem!
+   - PCA skal kun fittes på training data
+
+6. **IKKE ALTID BEDRE:**
+   - Moderne algorithms (Random Forest, XGBoost) håndterer mange features godt
+   - Feature selection kan være bedre
+   - Regularization kan være mere effektiv
+
+
+KAN PCA REDUCERE OVERFITTING?
+==============================
+
+**JA, MEN...**
+
+HVORDAN DET HJÆLPER:
+
+1. **Færre Parameters:**
+   - 100 features → 10 principal components
+   - Model har færre weights at lære
+   - Mindre capacity til at overfit
+
+2. **Noise Removal:**
+   - Sidste principal components ofte noise
+   - Ved at droppe dem, fjerner du noise
+   - Fokuserer på signal
+
+3. **Regularization Effect:**
+   - Virker som implicit regularization
+   - Begrænser model flexibility
+
+HVORFOR DET IKKE ALTID VIRKER:
+
+1. **Supervised vs Unsupervised:**
+   - PCA ved IKKE om target variable (y)
+   - Kan fjerne dimensions vigtige for prediction
+   - PCA maximerer variance, ikke predictive power
+
+2. **Information Loss:**
+   - Kan fjerne signal sammen med noise
+   - 5% variance kan indeholde 50% predictive power!
+
+3. **Bedre Alternativer:**
+   - L1/L2 regularization
+   - Cross-validation
+   - Mere training data
+   - Feature selection baseret på importance
+
+
+BEST PRACTICES:
+===============
+
+HVORNÅR BRUG PCA:
+
+✓ Meget højdimensionel data (1000+ features)
+✓ Features er korrelerede
+✓ Visualisering behov
+✓ Computational constraints
+✓ Mange collinear features
+
+HVORNÅR UNDGÅ PCA:
+
+✗ Få features (<20)
+✗ Interpretability er vigtig
+✗ Features har klar domain meaning
+✗ Non-lineære relationships
+✗ Tree-based models (de håndterer features godt selv)
+
+WORKFLOW:
+
+1. **Prøv uden PCA først:**
+   - Baseline model med alle features
+   - Mål performance
+
+2. **Hvis problemer:**
+   - Overfitting? → Prøv PCA
+   - Langsom? → Prøv PCA
+   - Visualisering? → Brug PCA
+
+3. **Compare:**
+   - Model performance med og uden PCA
+   - Training time
+   - Interpretability needs
+
+4. **Cross-validate:**
+   - PCA skal være INSIDE cross-validation loop
+   - Ellers data leakage!
+
+```python
+from sklearn.pipeline import Pipeline
+from sklearn.decomposition import PCA
+from sklearn.model_selection import cross_val_score
+
+pipe = Pipeline([
+    ('pca', PCA(n_components=10)),
+    ('clf', LogisticRegression())
+])
+
+scores = cross_val_score(pipe, X, y, cv=5)
+```
+
+
+KONKLUSION:
+===========
+
+Data compression (PCA) er et kraftfuldt værktøj, men ikke en universal løsning.
+
+**Brug det når:**
+- Mange dimensions
+- Visualisering behov
+- Computational constraints
+- Correlated features
+
+**Undgå det når:**
+- Få features
+- Interpretability kritisk
+- Tree-based models
+- Domain features er vigtige
+
+**Husk:**
+- Start uden PCA
+- Sammenlign performance
+- Cross-validate korrekt
+- Forstå trade-offs
+
+"Premature optimization is the root of all evil" - Donald Knuth
+Prøv simpelt først!

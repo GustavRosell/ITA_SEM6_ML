@@ -1,0 +1,41 @@
+Exercise 55 - More Hidden Layers
+=================================
+
+Det kan virke kontraintuitivt, at træning af et netværk med 2 hidden layers faktisk i nogle tilfælde kan være hurtigere end med 1 hidden layer (antallet af neuroner i hvert lag er dog ikke det samme).
+
+Spørgsmål:
+Hvordan kan dette være?
+
+Hvis du ikke kender svaret, så (gen)læs side 349-50 (323-24 i v2, og 270-71 i v.1 af bogen) i kapitel 10.
+
+Det er afgørende, at du får denne forståelse!
+
+
+Notér dit svar nedenfor:
+-------------------------
+
+SVAR (fra bog side 349-50 / 323-24 v2 / 270-71 v1):
+
+2 hidden layers kan være hurtigere end 1 fordi:
+
+1. HIERARKISK LÆRING:
+   - Første layer lærer simple features (kanter, former)
+   - Anden layer kombinerer disse til komplekse patterns
+   - Mere effektiv representation
+
+2. FÆRRE NEURONER TOTALT:
+   - 1 layer med 100 neurons vs 2 layers med 10+10 neurons
+   - Dybere netværk kan lære samme kompleksitet med færre parametre
+
+3. BEDRE GRADIENT FLOW:
+   - Moderne activation functions (ReLU) hjælper dybere nets
+   - Distributed representation over flere layers
+
+4. UNIVERSAL APPROXIMATION:
+   - 1 layer KAN teoretisk lære alt
+   - Men 2+ layers lærer det HURTIGERE og med færre neurons
+
+Eksempel fra Playground:
+- Spiral: 1 layer × 20 neurons vs 3 layers × 5 neurons
+- Dybere netværk træner hurtigere!
+
