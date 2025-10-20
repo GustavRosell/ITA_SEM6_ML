@@ -1,0 +1,302 @@
+TITANIC SURVIVAL PREDICTION - EXPERIMENTS LOG
+==============================================
+
+Formål: Systematisk tracking af alle eksperimenter og resultater
+Dataset: titanic_800.csv (800 samples)
+Train/Test split: 80/20 (640/160) med stratify
+
+==============================================
+BASELINE MODELS (Initial Performance)
+==============================================
+
+Eksperiment #0: Baseline Modeller
+---------------------------------
+Dato: [Indsæt dato]
+Features: Pclass, Sex, Age, SibSp, Parch, Fare, Embarked_Q, Embarked_S
+Missing data: Age=median, Embarked=mode, Fare=median
+Scaling: StandardScaler
+
+Model 1: Random Forest (n_estimators=100, max_depth=10)
+  Accuracy:  [____]%
+  Precision: [____]%
+  Recall:    [____]%
+
+Model 2: Logistic Regression
+  Accuracy:  [____]%
+  Precision: [____]%
+  Recall:    [____]%
+
+Model 3: Neural Network (10, 10)
+  Accuracy:  [____]%
+  Precision: [____]%
+  Recall:    [____]%
+
+Noter: [Dine observationer]
+
+
+==============================================
+HYPERPARAMETER TUNING
+==============================================
+
+Eksperiment #1: Random Forest n_estimators
+-------------------------------------------
+Dato: [Indsæt dato]
+Model: Random Forest
+Parameter: n_estimators
+Værdier testet: 10, 50, 100, 200, 500
+
+Resultater:
+  n_estimators=10:   Accuracy = [____]%
+  n_estimators=50:   Accuracy = [____]%
+  n_estimators=100:  Accuracy = [____]%
+  n_estimators=200:  Accuracy = [____]%
+  n_estimators=500:  Accuracy = [____]%
+
+Bedste værdi: n_estimators = [____]
+Konklusion: [Din konklusion]
+
+
+Eksperiment #2: Random Forest max_depth
+----------------------------------------
+Dato: [Indsæt dato]
+Model: Random Forest
+Parameter: max_depth
+Værdier testet: 3, 5, 10, 15, 20, None
+
+Resultater:
+  max_depth=3:     Accuracy = [____]%
+  max_depth=5:     Accuracy = [____]%
+  max_depth=10:    Accuracy = [____]%
+  max_depth=15:    Accuracy = [____]%
+  max_depth=20:    Accuracy = [____]%
+  max_depth=None:  Accuracy = [____]%
+
+Bedste værdi: max_depth = [____]
+Konklusion: [Din konklusion]
+
+
+Eksperiment #3: Neural Network Topologies
+------------------------------------------
+Dato: [Indsæt dato]
+Model: MLPClassifier
+Parameter: hidden_layer_sizes
+Topologies testet: (5,), (10,), (5,5), (10,10), (20,10), (10,10,10)
+
+Resultater:
+  (5,):        Accuracy = [____]%
+  (10,):       Accuracy = [____]%
+  (5, 5):      Accuracy = [____]%
+  (10, 10):    Accuracy = [____]%
+  (20, 10):    Accuracy = [____]%
+  (10, 10, 10): Accuracy = [____]%
+
+Bedste topology: [____]
+Konklusion: [Din konklusion]
+
+
+==============================================
+DATA PREPROCESSING EXPERIMENTS
+==============================================
+
+Eksperiment #4: Missing Data Strategies
+----------------------------------------
+Dato: [Indsæt dato]
+Model: Random Forest (n_estimators=100, max_depth=10)
+Parameter: Imputation strategy
+Strategies testet: mean, median, most_frequent
+
+Resultater:
+  Strategy='mean':          Accuracy = [____]%
+  Strategy='median':        Accuracy = [____]%
+  Strategy='most_frequent': Accuracy = [____]%
+
+Bedste strategy: [____]
+Konklusion: [Din konklusion]
+
+
+Eksperiment #5: Feature Scaling Methods
+---------------------------------------
+Dato: [Indsæt dato]
+Model: [Model navn]
+Scaling methods: StandardScaler, MinMaxScaler, RobustScaler, None
+
+Resultater:
+  StandardScaler: Accuracy = [____]%
+  MinMaxScaler:   Accuracy = [____]%
+  RobustScaler:   Accuracy = [____]%
+  No scaling:     Accuracy = [____]%
+
+Bedste method: [____]
+Konklusion: [Din konklusion]
+
+
+==============================================
+FEATURE ENGINEERING
+==============================================
+
+Eksperiment #6: Family Size Feature
+------------------------------------
+Dato: [Indsæt dato]
+Model: Random Forest
+Ny feature: Family_Size = SibSp + Parch + 1
+
+Resultater:
+  Uden Family_Size: Accuracy = [____]%
+  Med Family_Size:  Accuracy = [____]%
+  Forskel:          [+/-____]%
+
+Konklusion: [Din konklusion]
+
+
+Eksperiment #7: Titel fra Navn
+-------------------------------
+Dato: [Indsæt dato]
+Model: [Model navn]
+Ny feature: Extract titel fra Name kolonne (Mr, Mrs, Miss, Master, etc.)
+
+Resultater:
+  Uden titel feature: Accuracy = [____]%
+  Med titel feature:  Accuracy = [____]%
+  Forskel:            [+/-____]%
+
+Konklusion: [Din konklusion]
+
+
+Eksperiment #8: Age Binning
+----------------------------
+Dato: [Indsæt dato]
+Model: [Model navn]
+Feature transformation: Age → Age_Category (Child, Young, Adult, Senior)
+Bins: 0-12 (Child), 13-25 (Young), 26-60 (Adult), 60+ (Senior)
+
+Resultater:
+  Uden binning: Accuracy = [____]%
+  Med binning:  Accuracy = [____]%
+  Forskel:      [+/-____]%
+
+Konklusion: [Din konklusion]
+
+
+==============================================
+MODEL COMPARISON
+==============================================
+
+Eksperiment #9: Alternative Models
+-----------------------------------
+Dato: [Indsæt dato]
+Træn og sammenlign yderligere modeller:
+
+Resultater:
+  Random Forest:        Accuracy = [____]%
+  Logistic Regression:  Accuracy = [____]%
+  Neural Network:       Accuracy = [____]%
+  Decision Tree:        Accuracy = [____]%
+  SVM (RBF kernel):     Accuracy = [____]%
+  K-Nearest Neighbors:  Accuracy = [____]%
+  Gradient Boosting:    Accuracy = [____]%
+
+Bedste model: [____]
+Konklusion: [Din konklusion]
+
+
+==============================================
+ADVANCED TECHNIQUES
+==============================================
+
+Eksperiment #10: Cross-Validation
+----------------------------------
+Dato: [Indsæt dato]
+Model: [Bedste model fra tidligere]
+Method: 5-fold cross-validation
+
+Resultater:
+  Fold 1: Accuracy = [____]%
+  Fold 2: Accuracy = [____]%
+  Fold 3: Accuracy = [____]%
+  Fold 4: Accuracy = [____]%
+  Fold 5: Accuracy = [____]%
+
+  Mean:   Accuracy = [____]%
+  Std:    [____]%
+
+Konklusion: [Din konklusion]
+
+
+Eksperiment #11: GridSearchCV
+------------------------------
+Dato: [Indsæt dato]
+Model: Random Forest
+Parameter grid:
+  - n_estimators: [50, 100, 200]
+  - max_depth: [5, 10, 15, None]
+  - min_samples_split: [2, 5, 10]
+
+Bedste parametre:
+  n_estimators = [____]
+  max_depth = [____]
+  min_samples_split = [____]
+
+Best CV score: [____]%
+Test accuracy: [____]%
+
+Konklusion: [Din konklusion]
+
+
+==============================================
+FINAL BEST MODEL
+==============================================
+
+Model: [____]
+Parametre:
+  [List alle parametre]
+
+Features brugt:
+  [List alle features]
+
+Preprocessing:
+  - Missing data: [____]
+  - Encoding: [____]
+  - Scaling: [____]
+
+Performance på test set (160 samples):
+  Accuracy:  [____]%
+  Precision: [____]%
+  Recall:    [____]%
+  F1-Score:  [____]
+
+Confusion Matrix:
+              Predicted
+              Død  Overlevede
+  Actual Død   [__]    [__]
+      Overlevede [__]    [__]
+
+Top 3 vigtigste features:
+  1. [____]
+  2. [____]
+  3. [____]
+
+==============================================
+NOTES & OBSERVATIONS
+==============================================
+
+[Skriv dine generelle observationer og læringer her]
+
+-
+-
+-
+
+
+==============================================
+NEXT STEPS / TODO
+==============================================
+
+[ ] Prøv ensemble af forskellige modeller
+[ ] Implementer stacking classifier
+[ ] Analysér fejl mere detaljeret
+[ ] Feature selection med RFE
+[ ]
+
+
+==============================================
+END OF LOG
+==============================================
